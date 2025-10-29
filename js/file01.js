@@ -1,6 +1,7 @@
 "use strict";
 
 import { fetchProducts } from './functions.js';
+import { saveVotes } from './firebase.js';  
 
 /**
  * Muestra el elemento toast interactivo en breakpoints md en adelante.
@@ -76,10 +77,31 @@ let renderProducts = () => {
                 console.error('Error fetching products:', result.body);
             }
         });
-}
+};
+
+let enableForm = () => {
+    const form = document.getElementById("form_voting");
+    if (form) {
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const productId = document.getElementById("select_product").value;
+
+            saveVotes(productId)
+            .then(response => {
+                if (response.status) {
+                    alert(response.message);
+                } else {
+                    alert(response.message);
+                }
+            });
+        });
+    }
+};
 
 (() => {
     showToast();
     showVideo();
     renderProducts();
+    enableForm();
 })();

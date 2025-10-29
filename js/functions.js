@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-let fetchProducts = (url) => {
-    // usar la API fetch correcta
+let fetchProducts =  (url) => {
+
     return fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -10,12 +10,14 @@ let fetchProducts = (url) => {
 
             return response.json();
         })
+        
         .then(data => {
             return {
                 success: true,
                 body: data
             };
         })
+
         .catch(error => {
             return {
                 success: false,
